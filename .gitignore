@@ -58,6 +58,10 @@ lerna-debug.log*
 # Build tools (Vite, etc.)
 /dist/
 
+# Playwright
+/playwright-report/
+/test-results/
+
 # Local caches
 .cache/
 .turbo/
