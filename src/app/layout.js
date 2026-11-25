@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
 
         <Header />
 
-        <main id="main-content" className="container">
+        <main id="main-content" className="container" tabIndex={-1}>
           {children}
         </main>
 
