@@ -10,17 +10,21 @@ This project will combine information about Bengal cats with curated photos and 
 
 ## Project Status
 
-🚧 **Planning / Pre-development**
+🚧 **Active development — `0.1.0` foundation implemented**
 
-Development has not started yet. The initial project plan and development roadmap have been documented and committed to GitHub.
+The Next.js application is running locally, and implementation has started. The initial foundation includes:
 
-The site will be developed incrementally through pre-1.0 milestones, with the first complete release targeted for `1.0.0`.
+- Next.js App Router with **JavaScript** (not TypeScript), React, and Pico CSS
+- Shared header, navigation, footer, and a custom Bengal stylesheet
+- Working **Home**, **Facts**, **Rescue & Adoption**, and **About** routes
+- ESLint, Prettier, Playwright, and axe-core tooling
+- Automated accessibility checks on all four routes (four tests passing in the latest local run)
 
-Detailed feature planning, technical decisions, and future ideas are maintained in the project documentation.
+**Foundation tracking:** all six `0.1.0` GitHub issues are closed. `.env.example`, `docs/DEVELOPMENT.md`, and the environment/SQLite Git exclusions are committed. The application is **not deployed**, and real breed content, API integrations, SQLite storage, and photo/rescue features belong to later milestones. Manual accessibility testing remains ongoing as the site grows.
 
-See the `docs/` directory for the project plan.
+The first complete public release remains targeted for `1.0.0`. See [GitHub Milestones](https://github.com/jennifert/Bengals/milestones) and [Issues](https://github.com/jennifert/Bengals/issues) for implementation tracking. Later milestones hold *Possible issues* notes until individual tickets are needed.
 
-GitHub Issues and Milestones will be used to track implementation as development progresses.
+The detailed scope, decisions, and deferred ideas are recorded in the [project plan](docs/project-plan.md). Development conventions are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Planned Features
 
@@ -77,7 +81,7 @@ Because ordinary HTTP errors clearly do not contain enough cats.
 
 External APIs should not need to be queried every time somebody visits the website.
 
-Where appropriate, API results will be periodically fetched, normalized, and stored locally.
+**Architecture decision:** Next.js with a planned **SQLite** data store (using `better-sqlite3`), populated by scheduled fetch/normalize/cache jobs. Neither the database nor the import jobs have been implemented yet.
 
 A likely workflow is:
 
@@ -107,7 +111,7 @@ API failures should not make the entire website unusable when cached data is ava
 
 Secrets and API credentials must **never** be committed to the repository.
 
-The project will include an `.env.example` documenting required configuration.
+The committed [`.env.example`](.env.example) contains **empty placeholders only**. No external API credentials are needed to run the current placeholder pages.
 
 Example:
 
@@ -125,7 +129,7 @@ YOUTUBE_API_KEY=
 RESCUEGROUPS_API_KEY=
 
 # Database
-DATABASE_URL=
+DATABASE_PATH=
 ```
 
 Actual variable names will be finalized when the integrations are implemented.
@@ -151,11 +155,11 @@ Development will consider:
 - Touch target sizing
 - Responsive layouts
 
-Automated accessibility testing will be supplemented by manual keyboard and screen-reader testing.
+The project now uses **Playwright + axe-core** to scan the four existing routes for common WCAG A/AA issues. All four automated tests passed in the latest local run. Automated checks will be supplemented by manual keyboard, focus, contrast, and screen-reader testing as development continues.
 
 ## Design
 
-The site will use a simple, content-focused layout built around Pico CSS.
+The site uses a simple, content-focused layout built around **Pico CSS**, with overrides in `src/css/style.css`. The initial custom palette has been introduced, and Pico currently follows the visitor's light/dark system preference.
 
 Planned palette:
 
@@ -263,30 +267,53 @@ Especially for this project.
 
 ## Development
 
-Development instructions will be added once the project's final framework and dependencies are selected.
+The application is initialized with **Next.js App Router**, JavaScript, npm, Pico CSS, and a local development/test toolchain. The current pages are placeholders, not finished content.
 
-The eventual setup should be approximately:
+### Local setup
+
+Requires a suitable current Node.js and npm installation. Clone and install dependencies:
 
 ```bash
 git clone https://github.com/jennifert/Bengals.git
 cd Bengals
-
 npm install
-
-cp .env.example .env.local
-
+npx playwright install chromium
 npm run dev
 ```
 
-Additional database initialization and migration instructions will be documented here once implemented.
+Visit [http://localhost:3000](http://localhost:3000) to view the local site. Configuration names are documented as empty placeholders in the committed `.env.example` template. **Do not put secrets in Git.** A `.env.local` file is only needed later when integrations require credentials.
+
+For future configuration, copy `.env.example` to `.env.local` using `cp .env.example .env.local` on macOS (or a Unix-style shell), or `Copy-Item .env.example .env.local` in Windows PowerShell.
+
+### Project structure
+
+```text
+src/
+├── app/             # App Router layout and Home / Facts / Rescue / About routes
+├── components/      # Reusable header and footer
+├── css/style.css    # Bengal overrides layered after Pico CSS
+└── tests/           # Playwright accessibility checks
+```
+
+### Quality checks
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the local development server |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Apply Prettier formatting |
+| `npm run format:check` | Check formatting without changes |
+| `npm run build` | Verify a production build |
+| `npm run test:a11y` | Run Playwright + axe-core page scans |
+| `npm run check` | Run lint, formatting check, build, and accessibility tests |
+
+Manual keyboard and screen-reader checks remain essential. Database migrations, scheduled refreshes, and deployment instructions will be documented when those features are implemented.
 
 ## Hosting & Deployment
 
-Hosting options under consideration include Netlify and DigitalOcean.
+**DigitalOcean Droplet is the current production-hosting preference** because a continuously updated SQLite database needs persistent storage. Netlify remains an option for previews or an architecture adapted to serverless storage; it is not the selected host for a writable on-disk SQLite database.
 
-The final deployment architecture will depend on the application's database, caching, and scheduled refresh requirements.
-
-Development will support both Windows and macOS.
+No deployment has been configured. The final deployment architecture will depend on the database, caching, and scheduled refresh requirements. Development supports both Windows and macOS.
 
 ## Contributing
 
@@ -304,7 +331,7 @@ Use of an external API does not imply endorsement by or affiliation with that pr
 
 ## License
 
-The source-code license has not yet been finalized.
+The source-code license has not yet been finalized. Any default license field created by `npm init` is not, by itself, a final licensing decision.
 
 The eventual license will apply to the project's original source code and **will not grant rights to third-party photographs, videos, API data, trademarks, or other externally sourced content**.
 
