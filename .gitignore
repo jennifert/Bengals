@@ -16,7 +16,6 @@
 /build
 
 # misc
-.DS_Store
 *.pem
 
 # debug
@@ -34,3 +33,34 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# JetBrains IDEs (IntelliJ IDEA, PyCharm, WebStorm)
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Additional Node.js logs
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build tools (Vite, etc.)
+/dist/
+
+# Local caches
+.cache/
+.turbo/
+
+# VS Code personal settings
+.vscode/
