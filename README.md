@@ -12,29 +12,34 @@ This project will combine information about Bengal cats with curated photos and 
 
 🚧 **Planning / Pre-development**
 
-Development has not started yet. This repository will be used to build the project incrementally through a series of pre-1.0 milestones.
+Development has not started yet. The initial project plan and development roadmap have been documented and committed to GitHub.
 
-See the GitHub Issues and Milestones for the development roadmap once they are available.
+The site will be developed incrementally through pre-1.0 milestones, with the first complete release targeted for `1.0.0`.
+
+Detailed feature planning, technical decisions, and future ideas are maintained in the project documentation.
+
+See the `docs/` directory for the project plan.
+
+GitHub Issues and Milestones will be used to track implementation as development progresses.
 
 ## Planned Features
 
-The initial site is planned to include:
+The initial website will include:
 
-- Bengal breed information
-- Bengal-themed terminology and humour
-- Curated Bengal photography
-- Curated Bengal and cat videos
-- Rescue and adoption resources
-- Bengal-specific rescue filtering
-- Optional all-cat rescue results
-- Location/map support for rescue listings
-- Accessible loading, empty, and error states
-- Cat-themed HTTP status messages
-- Responsive design
-- Accessibility as a core project requirement
+- Bengal breed information and fun facts
+- Curated Bengal photography and videos
+- Rescue and adoption listings
+- Bengal-specific rescue filtering, with an option to view all cats
+- Interactive rescue location maps
+- Accessible alternatives to interactive maps
+- Responsive and accessible design
+- Cat-themed loading, error, and empty states
 - Privacy-conscious API usage and caching
 
-After the main site reaches `1.0.0`, a small Bengal-themed browser game is planned as a separate feature release.
+Photos and videos will initially be integrated into the
+existing pages rather than requiring separate sections.
+
+The Chaos Cat Game is planned for after version 1.0.0.
 
 ## Planned Data Sources
 
@@ -90,7 +95,11 @@ Application
 User
 ```
 
-Refresh frequency will depend on the type of information. Relatively static content such as photographs may be refreshed infrequently, while rescue information may require more frequent updates.
+The application is intended to be a website, not a public API service.
+
+External data will be periodically fetched, validated, normalized, and cached or stored locally where appropriate.
+
+A weekly refresh may be suitable for relatively static content, while time-sensitive rescue listings may require more frequent updates.
 
 API failures should not make the entire website unusable when cached data is available.
 
@@ -164,9 +173,7 @@ Individual colour combinations will be tested for sufficient contrast before use
 
 ```text
 Home
-├── About Bengals
-├── Photos
-├── Videos
+├── Facts (Bengal breed information)
 ├── Rescue & Adoption
 └── About
 ```
@@ -261,8 +268,8 @@ Development instructions will be added once the project's final framework and de
 The eventual setup should be approximately:
 
 ```bash
-git clone <repository-url>
-cd bengal-fan-page
+git clone https://github.com/jennifert/Bengals.git
+cd Bengals
 
 npm install
 
@@ -272,6 +279,14 @@ npm run dev
 ```
 
 Additional database initialization and migration instructions will be documented here once implemented.
+
+## Hosting & Deployment
+
+Hosting options under consideration include Netlify and DigitalOcean.
+
+The final deployment architecture will depend on the application's database, caching, and scheduled refresh requirements.
+
+Development will support both Windows and macOS.
 
 ## Contributing
 
