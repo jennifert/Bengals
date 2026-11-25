@@ -1,4 +1,7 @@
 import "@picocss/pico/css/pico.min.css";
+import "../css/style.css";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export const metadata = {
     title: "Bengal Fan Page",
@@ -8,7 +11,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-        <body>{children}</body>
+        <body>
+        <a href="#main-content" className="skip-link">
+            Skip to main content
+        </a>
+
+        <Header />
+
+        <main id="main-content" className="container">
+            {children}
+        </main>
+
+        <Footer />
+        </body>
         </html>
     );
 }
